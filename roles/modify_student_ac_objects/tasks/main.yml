@@ -2,7 +2,7 @@
 # tasks file for modify_student_ac_objects
 - name: Student seat loop control
   include_tasks: build_job_templates_for_workflow.yml
-  loop: "{{ query('sequence', 'start=1 end='+(number_of_workshop_students)|string) }}"
+  loop: "{{ query('sequence', 'start="1" end='+(number_of_workshop_students)|string) }}"
   loop_control:
     loop_var: student_number
     label: "{{ student_number }}"
