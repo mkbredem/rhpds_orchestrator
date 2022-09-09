@@ -1,0 +1,28 @@
+---
+# defaults file for modify_student_ac_objects
+controller_validate_certs: false
+number_of_workshop_students: 1
+workshop_id: ""
+workshop_password: ""
+controller_components:
+  - credentials
+  - job_templates
+controller_credentials:
+  - name: "student{{student_number}}_controller_cred"
+    credential_type: "Red Hat Ansible Automation Platform"
+    organization: Default
+    inputs: 
+      host: student{{student_number}}.{{workshop_id}}.example.opentlc.com
+      username: admin
+      password: "{{workshop_password}}"
+    ignore_errors: true
+controller_templates:
+  - name: "WORKSHOP / Setup Student{{student_number}}"
+    job_type: run
+    inventory: "Workshop Inventory"
+    project: "Workshop Student Setup"
+    playbook: "4_1_build_student_ac_objects.yml"
+    execution_environment: Default execution environment
+    become_enabled: true
+    credentials:
+    - "student{{student_number}}_controller_cred"

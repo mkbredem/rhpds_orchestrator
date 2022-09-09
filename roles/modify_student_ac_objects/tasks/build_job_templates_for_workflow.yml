@@ -1,0 +1,6 @@
+- name: set up controller creds
+  include_role:
+    name: "redhat_cop.controller_configuration.{{ item }}"
+  loop: "{{ controller_components }}"
+  when:
+    - controller_components | d("") | length > 0

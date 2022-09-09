@@ -1,0 +1,7 @@
+---
+- name: Add Controller ojbects for each student
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - modify_student_ac_objects

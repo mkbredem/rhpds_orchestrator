@@ -1,0 +1,29 @@
+---
+# tasks file for setup_builder
+- name: install builder
+  yum:
+    name: 
+      - ansible-builder
+      - git
+      - tree
+    state: present
+
+- name: remove execution_environments if it exists
+  file:
+    path: /home/student/execution_environments
+    state: absent
+
+- name: enusre uptodate execution_environments directory exists
+  copy:
+    src: execution_environments
+    dest: /home/student
+    group: student
+    owner: student
+
+- name: add entitlements necessary to build EE
+  community.general.redhat_subscription:
+    state: present
+    username: "{{ subs_username }}"
+    password: "{{ subs_password }}"
+    force_register: yes
+    pool_ids: "{{ subs_pool_id }}"

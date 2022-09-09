@@ -1,0 +1,7 @@
+- name: create all student controller creds
+  include_tasks: build_student_controller_creds.yml
+#  with_sequence: start=1 end={{ number_of_workshop_students }}
+  loop: "{{ query('sequence', 'start=1 end='+(number_of_workshop_students)|string) }}"
+  loop_control:
+    loop_var: student_number
+    label: "{{ student_number }}"
